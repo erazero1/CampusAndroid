@@ -1,83 +1,115 @@
 package com.example.campusandroid;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
+
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Save");
+        builder.setMessage("Are you sure?");
+        builder.setCancelable(false);
+        builder.setIcon(R.mipmap.ic_launcher);
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+
+        builder.setNegativeButton("No", null);
+        builder.setNeutralButton("Cancel", null);
+        builder.setNegativeButton("No", null);
+        builder.create().show();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.Theme_CampusAndroid);
         setContentView(R.layout.activity_main);
 
-        TextView textView = findViewById(R.id.myLabel);
-        EditText editText = findViewById(R.id.FirsteditTextNumberDecimal);
-        EditText editText1 = findViewById(R.id.SecondeditTextNumberDecimal);
-        Button AddButton = findViewById(R.id.AdditionButton);
-        Button MultiplyButton = findViewById(R.id.MultiplicationButton);
-        Button SubtractButton = findViewById(R.id.SubtractionButton);
-        Button DivideButton = findViewById(R.id.DivideButton);
-        Button TriangleCalc = findViewById(R.id.buttonTriangle);
+        Button saveBtn = findViewById(R.id.saveButton);
+        Button delBtn = findViewById(R.id.deleteButton);
+        EditText inputField = findViewById(R.id.inputField);
+        ScrollView scrollView = findViewById(R.id.scrollView);
+        TextView TVinScroll = findViewById(R.id.TVinScroll);
 
-        View.OnClickListener listener2 = new View.OnClickListener() {
+
+        delBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), SecondActivity.class);
-                startActivity(intent);
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+
+                builder.setTitle("Delete all?");
+                builder.setMessage("Are you sure?");
+                builder.setCancelable(false);
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        TVinScroll.setText(null);
+                        Toast.makeText(getApplicationContext(), "All notes deleted", Toast.LENGTH_LONG).show();
+                    }
+                });
+                builder.setNegativeButton("No", null);
+                builder.setNeutralButton("Cancel", null);
+                builder.create().show();
             }
-        };
+        });
 
-        TriangleCalc.setOnClickListener(listener2);
 
-        View.OnClickListener listener = new View.OnClickListener() {
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View view) {
-                String str = "";
-                Button button = (Button) view;
-                double result = 0;
-                double firstValue = Double.parseDouble(String.valueOf(editText.getText()));
-                double secondValue = Double.parseDouble(String.valueOf(editText1.getText()));
-                if (button.getText().equals("+")) {
-                    result = firstValue + secondValue;
-                }
-                if (button.getText().equals("*")) {
-                    result = firstValue * secondValue;
-                }
-                if (button.getText().equals("-")) {
-                    result = firstValue - secondValue;
-                }
-                if (button.getText().equals("/")) {
-                    if(secondValue == 0.0){
-                        str = "You can't divide by zero";
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("Save");
+                builder.setMessage("Are you sure?");
+                builder.setCancelable(false);
+                // builder.setIcon(R.mipmap.ic_launcher);
+
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (inputField.getText() == null) {
+                            Toast.makeText(getApplicationContext(), "There's no text", Toast.LENGTH_LONG).show();
+                        } else {
+                            String content = (String) TVinScroll.getText();
+                            content += "\n\n" + inputField.getText();
+                            TVinScroll.setText(content);
+                            inputField.setText(null);
+                        }
                     }
-                    else{
-                        result = firstValue / secondValue;
-                    }
-                }
+                });
 
-                if (str.equals("")) {
-                    str = firstValue + " " + button.getText() + " " + secondValue + " = " + result;
-                }
-                textView.setText(str);
+                builder.setNegativeButton("No", null);
+                builder.setNeutralButton("Cancel", null);
 
 
+                builder.create().show();
             }
-        };
-
-
-        AddButton.setOnClickListener(listener);
-        MultiplyButton.setOnClickListener(listener);
-        SubtractButton.setOnClickListener(listener);
-        DivideButton.setOnClickListener(listener);
-
+        });
 
     }
+
+
 }
