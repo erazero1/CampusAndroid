@@ -13,21 +13,18 @@
         android:theme="@style/Theme.CampusAndroid"
         tools:targetApi="31">
         <activity
-            android:name=".LoginActivity"
+            android:name=".PlayActivity"
             android:exported="false" />
         <activity
-            android:name=".FirstEntry"
-            android:exported="true">
+            android:name=".MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.CampusAndroid">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:theme="@style/Theme.CampusAndroid"></activity>
     </application>
 
 </manifest>
