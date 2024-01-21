@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minHeight="100dp"
+
+    android:padding="10dp">
+
+
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Title"
+            android:textColor="#008080"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:padding="5dp"
+        />
+
+    <TextView
+        android:id="@+id/tvAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:padding="5dp"
+        android:textColor="#411B52"
+        android:text="Author"
+        android:textSize="24sp"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/tvIsFinished"
+        android:textColor="#BBBAA8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:padding="5dp"
+        android:text="IsFinished?"
+        android:textSize="20sp"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/tvYear"
+        android:textColor="#773585"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Publish Year"
+        android:padding="5dp"
+        android:textSize="20dp"
+        android:layout_gravity="bottom"
+
+        />
+</FrameLayout>
