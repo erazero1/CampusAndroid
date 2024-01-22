@@ -43,6 +43,13 @@ public class MangaListActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 2){
+            if(resultCode == RESULT_OK){
+                adapter.notifyDataSetChanged();
+            }
+        }
+
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 Manga manga = (Manga) data.getExtras().get("Manga");
@@ -60,13 +67,9 @@ public class MangaListActivity extends AppCompatActivity {
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
-
         MenuInflater inflater = getMenuInflater();
-
         inflater.inflate(R.menu.options_menu, menu);
-
         return true;
-
     }
 
     @Override
@@ -77,7 +80,15 @@ public class MangaListActivity extends AppCompatActivity {
 
         ListView listView = findViewById(R.id.listView);
         adapter = new MangaListAdapter(MangaListActivity.this, GLOBAL_MANGA);
+        
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener((adapterView, view, i, l) ->{
+            Intent intent = new Intent(MangaListActivity.this, MangaEditActivity.class);
+            intent.putExtra("position", i);
+            startActivityForResult(intent, 2);
+        });
+
         listView.setOnItemLongClickListener((adapterView, view, position, id) -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(MangaListActivity.this);
             builder.setTitle("Delete?");

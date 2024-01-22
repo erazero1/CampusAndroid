@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MangaAddingActivity">
+    tools:context=".MangaEditActivity">
 
     <EditText
         android:id="@+id/titleInput"
@@ -69,7 +69,7 @@
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:background="#008080"
-        android:text="Add"
+        android:text="Save"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
